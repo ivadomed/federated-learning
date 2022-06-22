@@ -4,7 +4,10 @@
 **Basic installation:** [Here](https://openmined.github.io/PySyft/install_tutorials/overview.html)  
 For Windows: Docker, wsl, conda environment, syft package, hagrid package
 
-### Using PyGrid with not autoDP (DP = differential privacy) data types
+### Using PyGrid with not autoDP data types (DP = differential privacy) 
 Relevant tutorial notebooks from OpenMined:
 - [Duet-Basics](https://github.com/OpenMined/courses/tree/foundations-of-private-computation/federated-learning/duet_basics)
 - [Duet-FL](https://github.com/OpenMined/courses/tree/foundations-of-private-computation/federated-learning/duet_fl)
+
+### Next: look into using PyGrid with autoDP data type  
+**Especially: using PyTorch models on autoDP data type** 
