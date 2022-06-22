@@ -1,1 +1,1 @@
-# federated_learning
+# federated-learning
