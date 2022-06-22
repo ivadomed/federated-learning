@@ -16,3 +16,5 @@ Mock API notebooks: DS requests results on autoDP vs not autoDP data types
 
 ### Next: look into using PyGrid with autoDP data type  
 **Especially: using PyTorch models on autoDP data type** 
+Relevant tutorial notebooks from OpenMined:
+- [Medical federated learning (MedNIST example)](https://github.com/OpenMined/PySyft/tree/dev/notebooks/medical-federated-learning-program)
