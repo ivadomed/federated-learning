@@ -23,7 +23,7 @@ Relevant tutorial notebooks from OpenMined:
 
 
 ## NVIDIA FLARE  
-**Google Drive with progress documentation:** [Here](https://drive.google.com/drive/folders/1EGbFSbQS1_H0_iofC33Fvik_YoXSeWR9?usp=sharing)
+**Google Drive with progress documentation:** [Here](https://drive.google.com/drive/folders/1EGbFSbQS1_H0_iofC33Fvik_YoXSeWR9?usp=sharing)  
 **Tutorials on Python class objects, error handling, Pytorch:** [Here](https://docs.google.com/document/d/1jGYr8JFfDSFNSxJdcQEsXI6Yu9C1Nx_iM_Rp5QAkfGc/edit?usp=sharing)
 
 **Basic installation:** [Here](https://nvidia.github.io/NVFlare/quickstart.html#installation)
