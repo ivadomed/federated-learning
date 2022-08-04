@@ -7,6 +7,9 @@ import nibabel as nib
 import numpy as np
 from PIL import Image
 
+# data_dir: C:\Users\shu00\OneDrive\Bureau\Dataset
+# site_name: MSD-Heart
+# out_path: C:\Users\shu00\OneDrive\Bureau\Dataset_2D
 
 def main():
     parser = argparse.ArgumentParser(description="Convert 3D prostate dataset for 2D experiment")
