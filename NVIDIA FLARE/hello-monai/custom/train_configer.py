@@ -104,7 +104,7 @@ class TrainConfiger:
             dimensions=3,
             # TODO: Try changing the input channel to 2 → NO
             in_channels=1,  # 1
-            out_channels=2, # TODO: why????
+            out_channels=2, # TODO: why???
             channels=(16, 32, 64, 128, 256),
             strides=(2, 2, 2, 2),
             num_res_units=2,
@@ -141,7 +141,8 @@ class TrainConfiger:
                     label_key="label",
                     # TODO: Change ROI for RandCrop??
                     # spatial_size=(96, 96, 96),
-                    spatial_size=(56, 56, 56),
+                    spatial_size=(56, 56, 56), # Or 60, 60, 60? == 5.3 factor
+                                                # or 32 32 32 (96/3)
                     pos=1,
                     neg=1,
                     num_samples=4,
