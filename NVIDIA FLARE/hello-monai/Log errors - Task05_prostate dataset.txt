@@ -1,0 +1,63 @@
+# Initial error: 
+
+
+2022-08-02 12:56:36,496 - ignite.engine.engine.SupervisedEvaluator - ERROR - Current run is terminating due to exception: Given groups=1, weight of size [16, 1, 3, 3, 3], expected input[1, 2, 160, 160, 160] to have 1 channels, but got 2 channels instead
+2022-08-02 12:56:36,496 - ignite.engine.engine.SupervisedEvaluator - ERROR - Exception: Given groups=1, weight of size [16, 1, 3, 3, 3], expected input[1, 2, 160, 160, 160] to have 1 channels, but got 2 channels instead
+Traceback (most recent call last):
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/ignite/engine/engine.py", line 840, in _run_once_on_dataset
+    self.state.output = self._process_function(self, self.state.batch)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/engines/evaluator.py", line 282, in _iteration
+    engine.state.output[Keys.PRED] = engine.inferer(inputs, engine.network, *args, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/inferers/inferer.py", line 192, in __call__
+    return sliding_window_inference(  # type: ignore
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/inferers/utils.py", line 176, in sliding_window_inference
+    seg_prob_out = predictor(window_data, *args, **kwargs)  # batched patch segmentation
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/networks/nets/unet.py", line 311, in forward
+    x = self.model(x)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/container.py", line 139, in forward
+    input = module(input)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/networks/blocks/convolutions.py", line 324, in forward
+    res: torch.Tensor = self.residual(x)  # create the additive residual from x
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 607, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 602, in _conv_forward
+return F.conv3d(
+
+
+
+
+
+---------------------------------------------------------------------------------------------
+# in_channel (Unet): 2 (instead of 1) 
+
+
+2022-08-02 15:32:21,019 - ClientRunner - ERROR - [run=13efa381-25d1-43c1-bf95-bc51234486a8, peer=example_project, peer_run=13efa381-25d1-43c1-bf95-bc51234486a8, task_name=train, task_id=304f6562-f8cb-4082-8723-4592ceadbeb3]: processing error in task executor <class 'monai_trainer.MONAITrainer'>
+Traceback (most recent call last):
+  File "/home/GRAMES.POLYMTL.CA/shson/poc/site-1/13efa381-25d1-43c1-bf95-bc51234486a8/app_site-1/custom/monai_trainer.py", line 88, in assign_current_model
+    np.reshape(weights, local_var_dict[var_name].shape)
+  File "<__array_function__ internals>", line 180, in reshape
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/numpy/core/fromnumeric.py", line 298, in reshape
+    return _wrapfunc(a, 'reshape', newshape, order=order)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/numpy/core/fromnumeric.py", line 57, in _wrapfunc
+    return bound(*args, **kwds)
+ValueError: cannot reshape array of size 432 into shape (16,2,3,3,3)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/nvflare/private/fed/client/client_runner.py", line 164, in _process_task
+    reply = executor.execute(task.name, task.data, fl_ctx, self.task_abort_signal)
+  File "/home/GRAMES.POLYMTL.CA/shson/poc/site-1/13efa381-25d1-43c1-bf95-bc51234486a8/app_site-1/custom/monai_trainer.py", line 210, in execute
+    self.assign_current_model(dxo.data)
+  File "/home/GRAMES.POLYMTL.CA/shson/poc/site-1/13efa381-25d1-43c1-bf95-bc51234486a8/app_site-1/custom/monai_trainer.py", line 91, in assign_current_model
+    raise ValueError(
+ValueError: Convert weight from model.0.conv.unit0.conv.weight failed with error: cannot reshape array of size 432 into shape (16,2,3,3,3)
+
