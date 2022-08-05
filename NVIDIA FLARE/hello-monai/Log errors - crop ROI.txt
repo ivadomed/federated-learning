@@ -1,0 +1,82 @@
+# spatial_size=(96,96,96)
+
+
+ File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/transforms/transform.py", line 89, in apply_transform
+    return _apply_transform(transform, data, unpack_items)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/transforms/transform.py", line 53, in _apply_transform
+    return transform(parameters)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/transforms/croppad/dictionary.py", line 1171, in __call__
+    self.randomize(label, fg_indices, bg_indices, image)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/transforms/croppad/dictionary.py", line 1153, in randomize
+    self.centers = generate_pos_neg_label_crop_centers(
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/transforms/utils.py", line 512, in generate_pos_neg_label_crop_centers
+    centers.append(correct_crop_centers(center, spatial_size, label_spatial_shape, allow_smaller))
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/transforms/utils.py", line 439, in correct_crop_centers
+    raise ValueError("The size of the proposed random crop ROI is larger than the image size.")
+ValueError: The size of the proposed random crop ROI is larger than the image size.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 302, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/data/dataset.py", line 97, in __getitem__
+    return self._transform(index)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/data/dataset.py", line 807, in _transform
+    data = apply_transform(_transform, data)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/transforms/transform.py", line 113, in apply_transform
+    raise RuntimeError(f"applying transform {transform}") from e
+RuntimeError: applying transform <monai.transforms.croppad.dictionary.RandCropByPosNegLabeld object at 0x7fcf60db2d90>
+
+
+
+
+
+--------------------------------------------------------------------------------------------------
+# spatial_size=(56, 56, 56)
+
+
+2022-08-02 18:36:35,469 - ignite.engine.engine.SupervisedTrainer - ERROR - Current run is terminating due to exception: Sizes of tensors must match except in dimension 1. Expected size 7 but got size 8 for tensor number 1 in the list.
+2022-08-02 18:36:35,469 - ignite.engine.engine.SupervisedTrainer - ERROR - Exception: Sizes of tensors must match except in dimension 1. Expected size 7 but got size 8 for tensor number 1 in the list.
+Traceback (most recent call last):
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/ignite/engine/engine.py", line 840, in _run_once_on_dataset
+    self.state.output = self._process_function(self, self.state.batch)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/engines/trainer.py", line 210, in _iteration
+    _compute_pred_loss()
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/engines/trainer.py", line 200, in _compute_pred_loss
+    engine.state.output[Keys.PRED] = engine.inferer(inputs, engine.network, *args, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/inferers/inferer.py", line 85, in __call__
+    return network(inputs, *args, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/networks/nets/unet.py", line 311, in forward
+    x = self.model(x)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/container.py", line 139, in forward
+    input = module(input)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/networks/layers/simplelayers.py", line 120, in forward
+    y = self.submodule(x)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/container.py", line 139, in forward
+    input = module(input)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/networks/layers/simplelayers.py", line 120, in forward
+    y = self.submodule(x)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/container.py", line 139, in forward
+    input = module(input)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/GRAMES.POLYMTL.CA/shson/.conda/envs/nvflare-env-conda/lib/python3.8/site-packages/monai/networks/layers/simplelayers.py", line 123, in forward
+    return torch.cat([x, y], dim=self.dim)
+RuntimeError: Sizes of tensors must match except in dimension 1. Expected size 7 but got size 8 for tensor number 1 in the list.
