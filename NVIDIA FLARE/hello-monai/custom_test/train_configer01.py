@@ -71,7 +71,6 @@ class TrainConfiger:
         """
         self.max_epochs = max_epochs
         self.learning_rate = wf_config["learning_rate"]
-        # TODO: Change datalist → to file names in the current dataset
         self.data_list_json_file = wf_config["data_list_json_file"]
         self.val_interval = wf_config["val_interval"]
         self.ckpt_dir = wf_config["ckpt_dir"]
@@ -102,9 +101,9 @@ class TrainConfiger:
         self.set_device()
         network = UNet(
             dimensions=3,
-            # TODO: Try changing the input channel to 2 → NO
+            # TODO: Try changing the input channel to 2
             in_channels=1,  # 1
-            out_channels=2, # TODO: why???
+            out_channels=2,
             channels=(16, 32, 64, 128, 256),
             strides=(2, 2, 2, 2),
             num_res_units=2,
@@ -118,17 +117,17 @@ class TrainConfiger:
                 Orientationd(keys=["image", "label"], axcodes="RAS"),
                 Spacingd(
                     keys=["image", "label"],
-                    pixdim=(1.5, 1.5, 2.0),     # TODO: change. 1.25, 1.25, 1.37 Spacing for Task02-Heart
+                    pixdim=(1.25, 1.25, 1.37), # TODO: change (1.5, 1.5, 2.0): original
                     mode=("bilinear", "nearest"),
                 ),
-                ScaleIntensityRanged( # TODO: change a_min, a_max or Erase
-                    keys="image",
-                    a_min=-57,
-                    a_max=164,
-                    b_min=0.0,
-                    b_max=1.0,
-                    clip=True,
-                ),
+                # ScaleIntensityRanged( # TODO: change or erase
+                #    keys="image",
+                #    a_min=-57,
+                #    a_max=164,
+                #    b_min=0.0,
+                #    b_max=1.0,
+                #    clip=True,
+                #),
                 CropForegroundd(keys=("image", "label"), source_key="image"),
                 FgBgToIndicesd(
                     keys="label",
@@ -141,8 +140,7 @@ class TrainConfiger:
                     label_key="label",
                     # TODO: Change ROI for RandCrop??
                     # spatial_size=(96, 96, 96),
-                    spatial_size=(56, 56, 56), # Or 60, 60, 60? == 5.3 factor
-                                                # or 32 32 32 (96/3)
+                    spatial_size=(48, 48, 48),  # (32,32,32)
                     pos=1,
                     neg=1,
                     num_samples=4,
@@ -177,7 +175,7 @@ class TrainConfiger:
             shuffle=True,
             num_workers=4,
             # TODO: Add (change) collate_fn parameter
-            collate_fn=pad_list_data_collate
+            # collate_fn=pad_list_data_collate
         )
         val_transforms = Compose(
             [
@@ -186,17 +184,17 @@ class TrainConfiger:
                 Orientationd(keys=["image", "label"], axcodes="RAS"),
                 Spacingd(
                     keys=["image", "label"],
-                    pixdim=(1.5, 1.5, 2.0), # TODO: change
+                    pixdim=(1.25, 1.25, 1.37), # TODO: change. Original: (1.5, 1.5, 2.0)
                     mode=("bilinear", "nearest"),
                 ),
-                ScaleIntensityRanged(   # TODO: change a_min, a_max or Erase
-                    keys="image",
-                    a_min=-57,
-                    a_max=164,
-                    b_min=0.0,
-                    b_max=1.0,
-                    clip=True,
-                ),
+                #ScaleIntensityRanged( # TODO: change or erase
+                #    keys="image",
+                #    a_min=-57,
+                #    a_max=164,
+                #    b_min=0.0,
+                #    b_max=1.0,
+                #    clip=True,
+                #),
                 CropForegroundd(keys=("image", "label"), source_key="image"),
                 ToTensord(keys=("image", "label")),
             ]
@@ -211,8 +209,8 @@ class TrainConfiger:
             shuffle=False,
             num_workers=4,
             # TODO: Add (change) collate_fn parameter
-            collate_fn=pad_list_data_collate
-        )
+            # collate_fn=pad_list_data_collate
+            )
         post_transform = Compose(
             [
                 Activationsd(keys="pred", softmax=True),
@@ -246,7 +244,7 @@ class TrainConfiger:
             val_data_loader=val_data_loader,
             network=network,
             inferer=SlidingWindowInferer(
-                roi_size=[160, 160, 160], # TODO: change
+                roi_size=[100, 100, 100], # TODO: change. original: (160, 160, 160)
                 sw_batch_size=4,
                 overlap=0.5,
             ),

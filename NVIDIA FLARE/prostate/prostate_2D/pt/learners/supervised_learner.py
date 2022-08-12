@@ -73,7 +73,7 @@ class SupervisedLearner(Learner):
         fl_args = fl_ctx.get_prop(FLContextKey.ARGS)
         self.client_id = fl_ctx.get_identity_name()
         self.log_info(
-            fl_ctx,
+            fl_ctx,prostate-learner
             f"Client {self.client_id} initialized with args: \n {fl_args}",
         )
 
@@ -127,7 +127,7 @@ class SupervisedLearner(Learner):
         for epoch in range(self.aggregation_epochs):
             if abort_signal.triggered:
                 return make_reply(ReturnCode.TASK_ABORTED)
-            self.model.train()
+            self.model.train()      # TODO: ??? where does self.model come from?
             epoch_len = len(train_loader)
             self.epoch_global = self.epoch_of_start_time + epoch
             self.log_info(
@@ -191,7 +191,9 @@ class SupervisedLearner(Learner):
                 self.writer.add_scalar(tb_id, metric, record_epoch)
         return metric
 
-    def train(
+    def train(              # Is basically an execute() method (takes the same inputs as an execute() method, except task name
+                            # Name of the method is the task name tho
+                            # Returns a Shareable from a Shareable as input
         self,
         shareable: Shareable,
         fl_ctx: FLContext,
@@ -272,7 +274,7 @@ class SupervisedLearner(Learner):
         self.log_info(fl_ctx, "Local epochs finished. Returning shareable")
         return dxo.to_shareable()
 
-    def validate(self, shareable: Shareable, fl_ctx: FLContext, abort_signal: Signal) -> Shareable:
+    def validate(self, shareable: Shareable, fl_ctx: FLContext, abort_signal: Signal) -> Shareable: # Is basically an execute() method
         """Typical validation task pipeline with potential HE functionality
         Get global model weights (potentially with HE)
         Validation on local data

@@ -31,6 +31,8 @@ from monai.transforms import (
     Resized,
     ScaleIntensityRanged,
 )
+# TODO: add import: save_image
+from torchvision.utils import save_image
 
 
 def main():
@@ -96,14 +98,15 @@ def main():
     )
     test_loader = DataLoader(
         test_dataset,
-        batch_size=1,
-        shuffle=False,
+        batch_size=1,  # !!!
+        shuffle=False,  # TODO: Does that mean that the model is tested on data following the order defined in datalist?
+                        # Yes basically
         num_workers=1,
     )
 
     # Train
     model.eval()
-    with torch.no_grad():
+    with torch.no_grad():  # Basically the same code as validation (local_valid() in supervised_learner.py)
         metric = 0
         for i, batch_data in enumerate(test_loader):
             images = batch_data["image"].to(device)
@@ -111,6 +114,29 @@ def main():
             # Inference
             outputs = inferer(images, model)
             outputs = transform_post(outputs)
+
+            # TODO: Add print() to get type and shape of outputs
+            # print(type(outputs))  # torch.tensor
+            # print(outputs.shape)  # torch.Size([1, 1, 256, 256])
+
+            # TODO: Save outputs
+            print(i)
+            outputs_2D = outputs[0, 0, :, :]
+            print(outputs_2D.shape)  # torch.Size([256, 256])
+            save_image(outputs_2D, f'predictions_2D/pred{i}.png')
+                # Works when batch_size = 1
+                # → all the i (and therefore all the saved img names) will be different
+                # predictions_2D folder has to exist before running this script
+
+            # TODO: Save transformed images and labels → to compare with pred
+            # print(type(images), images.shape)
+            # print(type(images), labels.shape)
+            # images and labels shape: torch.Size([1, 1, 256, 256])
+            images_2D = images[0, 0, :, :]
+            labels_2D = labels[0, 0, :, :]
+            save_image(images_2D, f'images_2D_trans/img_trans{i}.png')
+            save_image(labels_2D, f'labels_2D_trans/label_trans{i}.png')
+
             # Compute metric
             metric_score = valid_metric(y_pred=outputs, y=labels)
             metric += metric_score.item()

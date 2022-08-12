@@ -61,13 +61,15 @@ class SupervisedMonaiProstateLearner(SupervisedLearner):
             a Shareable with the updated local model after running `execute()`
         """
         super().__init__(
-            aggregation_epochs=aggregation_epochs,
+            aggregation_epochs=aggregation_epochs,  # Overwriting parent class attribute
             train_task_name=train_task_name,
         )
         self.train_config_filename = train_config_filename
         self.config_info = None
 
-    def train_config(self, fl_ctx: FLContext):
+    def train_config(self, fl_ctx: FLContext):      # Overwriting the parent class method
+                                                    # (Parent class has the same method, but not defined)
+                                                    # Because: @abstractmethod
         """MONAI traning configuration
         Here, we use a json to specify the needed parameters
         """
