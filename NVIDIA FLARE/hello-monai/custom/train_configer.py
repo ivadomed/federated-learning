@@ -246,7 +246,7 @@ class TrainConfiger:
             val_data_loader=val_data_loader,
             network=network,
             inferer=SlidingWindowInferer(
-                roi_size=[160, 160, 160], # TODO: change
+                roi_size=[160, 160, 160], # TODO: change. original: 160, 160, 160
                 sw_batch_size=4,
                 overlap=0.5,
             ),
