@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO: create directories where transformed images, transformed labels and predictions are saved
+# Under result_stat/
+# images_trans_2D, labels_trans_2D, predictions_2D
+
 import argparse
 
 import torch
@@ -116,8 +120,8 @@ def main():
             outputs = transform_post(outputs)
 
             # TODO: Add print() to get type and shape of outputs
-            # print(type(outputs))  # torch.tensor
-            # print(outputs.shape)  # torch.Size([1, 1, 256, 256])
+            print(type(outputs))  # torch.tensor
+            print(outputs.shape)  # torch.Size([1, 1, 256, 256])
 
             # TODO: Save outputs
             print(i)
@@ -134,8 +138,8 @@ def main():
             # images and labels shape: torch.Size([1, 1, 256, 256])
             images_2D = images[0, 0, :, :]
             labels_2D = labels[0, 0, :, :]
-            save_image(images_2D, f'images_2D_trans/img_trans{i}.png')
-            save_image(labels_2D, f'labels_2D_trans/label_trans{i}.png')
+            save_image(images_2D, f'images_trans_2D/img_trans{i}.png')
+            save_image(labels_2D, f'labels_trans_2D/label_trans{i}.png')
 
             # Compute metric
             metric_score = valid_metric(y_pred=outputs, y=labels)

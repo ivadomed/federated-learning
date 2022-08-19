@@ -12,6 +12,11 @@ from PIL import Image
 # site_name: MSD-Heart
 # out_path: C:\Users\shu00\OneDrive\Bureau\Dataset_2D
 
+
+# data_dir: C:\Users\shu00\OneDrive\Bureau\Dataset
+# site_name: SpineGen-example
+# out_path: C:\Users\shu00\OneDrive\Bureau\Dataset_2D
+
 def main():
     parser = argparse.ArgumentParser(description="Convert 3D prostate dataset for 2D experiment")
     parser.add_argument("--data_dir", type=str, help="Path to all data folder")
