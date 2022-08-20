@@ -46,7 +46,9 @@ def main():
         image = nib.load(image_file_name).get_fdata().transpose((1, 0, 2))
         mask = nib.load(mask_file_name).get_fdata().transpose((1, 0, 2))
         # clip and normalize image
-        image = (image - 0) / (2048 - 0)
+        # TODO: change normalization code
+        # image = (image - 0) / (2048 - 0)
+        image = (image - image.min()) / (image.max() - image.min())
         image[image > 1] = 1
         # iterate through slice dimension
         for slice_idx in range(image.shape[2]):
